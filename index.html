@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BATCOMPUTADOR // Acesso à Batcaverna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+
+  <!-- ====================================================== -->
+  <!-- CENA DE FUNDO: Gotham City, chuva, relâmpagos e morcegos -->
+  <!-- ====================================================== -->
+  <div class="scene" id="scene">
+    <div class="sky"></div>
+    <div class="moon"></div>
+
+    <!-- Camadas de prédios (efeito parallax) -->
+    <div class="city-layer city-far" id="cityFar"></div>
+    <div class="city-layer city-mid" id="cityMid"></div>
+    <div class="city-layer city-near" id="cityNear"></div>
+
+    <!-- Bat-Sinal no céu (some até o login ser autorizado) -->
+    <div class="bat-signal-sky" id="batSignalSky">
+      <div class="bat-signal-beam"></div>
+      <div class="bat-signal-glow"></div>
+      <div class="bat-signal-icon"></div>
+    </div>
+
+    <!-- Camada de morcegos voando -->
+    <div class="bats-layer" id="batsLayer"></div>
+
+    <!-- Chuva -->
+    <div class="rain" id="rain"></div>
+    <div class="rain rain-back"></div>
+
+    <!-- Flash de relâmpago -->
+    <div class="lightning-flash" id="lightningFlash"></div>
+
+    <!-- Vinheta cinematográfica -->
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- BATMAN: avatar 100% HTML/CSS, observando do alto do prédio -->
+  <!-- ====================================================== -->
+  <div class="batman-perch">
+    <div class="batman" id="batman">
+      <div class="bat-cape"></div>
+      <div class="bat-body">
+        <div class="bat-cowl">
+          <div class="ear ear-left"></div>
+          <div class="ear ear-right"></div>
+          <div class="eyes">
+            <span class="eye eye-left"></span>
+            <span class="eye eye-right"></span>
+          </div>
+        </div>
+        <div class="bat-torso">
+          <div class="bat-emblem"></div>
+        </div>
+        <div class="arm arm-left"></div>
+        <div class="arm arm-right"></div>
+        <div class="leg leg-left"></div>
+        <div class="leg leg-right"></div>
+      </div>
+      <div class="grapple-line" id="grappleLine"></div>
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- INTERFACE PRINCIPAL: diálogo + formulário de acesso -->
+  <!-- ====================================================== -->
+  <main class="hud" id="hud">
+
+    <!-- Caixa de diálogo do Batman (efeito máquina de escrever) -->
+    <section class="dialogue-box glass" id="dialogueBox">
+      <div class="dialogue-header">
+        <span class="dialogue-dot"></span>
+        <span class="dialogue-name">BATMAN — TRANSMISSÃO SEGURA</span>
+      </div>
+      <p class="dialogue-text" id="dialogueText"></p>
+      <span class="dialogue-cursor" id="dialogueCursor">▌</span>
+    </section>
+
+    <!-- Painel de login -->
+    <form class="login-panel glass" id="loginForm" autocomplete="off">
+      <h1 class="panel-title">BATCOMPUTADOR</h1>
+      <p class="panel-subtitle">SISTEMA DE ACESSO RESTRITO — BATCAVERNA</p>
+
+      <div class="field">
+        <label for="nameInput">IDENTIFICAÇÃO</label>
+        <input type="text" id="nameInput" placeholder="Digite seu codinome..." autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="passInput">SENHA DE ACESSO</label>
+        <div class="password-wrap">
+          <input type="password" id="passInput" placeholder="Digite sua senha..." autocomplete="off" />
+          <button type="button" class="toggle-pass" id="togglePass" aria-label="Mostrar ou ocultar senha">
+            <svg id="eyeIcon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <div class="strength-meter">
+          <div class="strength-bar" id="strengthBar"></div>
+        </div>
+        <span class="strength-label" id="strengthLabel">&nbsp;</span>
+      </div>
+
+      <!-- Símbolo do Batman: substitui o botão de login tradicional -->
+      <button type="button" class="bat-symbol-btn" id="batSymbolBtn" aria-label="Acessar a Batcaverna" disabled>
+        <svg viewBox="0 0 200 100" class="bat-symbol-svg">
+          <path d="M100 5
+                   C 95 20, 80 18, 70 30
+                   C 60 15, 35 15, 20 25
+                   C 35 35, 40 45, 45 48
+                   C 25 48, 5 55, 0 65
+                   C 20 62, 35 68, 45 78
+                   C 55 65, 65 72, 70 85
+                   C 78 70, 88 68, 100 90
+                   C 112 68, 122 70, 130 85
+                   C 135 72, 145 65, 155 78
+                   C 165 68, 180 62, 200 65
+                   C 195 55, 175 48, 155 48
+                   C 160 45, 165 35, 180 25
+                   C 165 15, 140 15, 130 30
+                   C 120 18, 105 20, 100 5 Z"/>
+        </svg>
+        <span class="bat-symbol-ring"></span>
+      </button>
+      <p class="hint-text" id="hintText">Preencha os campos para revelar o símbolo de acesso.</p>
+    </form>
+  </main>
+
+  <!-- ====================================================== -->
+  <!-- SEQUÊNCIA CINEMATOGRÁFICA: salto entre prédios de Gotham -->
+  <!-- ====================================================== -->
+  <div class="sequence-overlay hidden" id="sequenceOverlay">
+    <div class="seq-sky"></div>
+    <div class="seq-buildings" id="seqBuildings"></div>
+    <div class="seq-batman" id="seqBatman">
+      <div class="seq-cape"></div>
+      <div class="seq-grapple-line" id="seqGrappleLine"></div>
+    </div>
+    <div class="seq-bats" id="seqBats"></div>
+    <div class="seq-lightning" id="seqLightning"></div>
+
+    <div class="progress-wrap glass">
+      <p class="progress-label" id="progressLabel">VERIFICANDO CREDENCIAIS<span class="dots">...</span></p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-percent" id="progressPercent">0%</p>
+    </div>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- RESULTADO: acesso autorizado / negado -->
+  <!-- ====================================================== -->
+  <div class="result-overlay hidden" id="resultOverlay">
+    <div class="result-signal" id="resultSignal"></div>
+    <h2 class="result-title" id="resultTitle"></h2>
+    <p class="result-sub" id="resultSub"></p>
+    <button class="retry-btn hidden" id="retryBtn">TENTAR NOVAMENTE</button>
+  </div>
+
+  <!-- Painéis do computador da Batcaverna (ligam após acesso autorizado) -->
+  <div class="batcomputer-panels" id="batcomputerPanels">
+    <div class="panel p1"></div>
+    <div class="panel p2"></div>
+    <div class="panel p3"></div>
+  </div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>
